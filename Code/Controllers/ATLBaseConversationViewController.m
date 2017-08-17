@@ -129,17 +129,15 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     }
     [super viewDidAppear:animated];
     self.messageInputToolbar.translucent = YES;
+    
+    if (!self.presentedViewController && self.navigationController && !self.view.inputAccessoryView.superview && !self.view.isFirstResponder){
+        [self.view becomeFirstResponder];
+    }
 }
 
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-
-    // To get the toolbar to slide onscreen with the view controller's content, we have to make the view the
-    // first responder here. Even so, it will not animate on iOS 8 the first time.
-    if (!self.presentedViewController && self.navigationController && !self.view.inputAccessoryView.superview) {
-        [self.view becomeFirstResponder];
-    }
     
     if (self.isFirstAppearance) {
         self.firstAppearance = NO;
@@ -154,13 +152,7 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     [super viewWillDisappear:animated];
     
     self.messageInputToolbar.translucent = NO;
-    if (atl_systemVersionLessThan(@"10.0")) {
-        // Workaround for view's content flashing onscreen after pop animation concludes on iOS 9.
-        BOOL isPopping = ![self.navigationController.viewControllers containsObject:self];
-        if (isPopping) {
-            [self.messageInputToolbar.textInputView resignFirstResponder];
-        }
-    }
+    [self.messageInputToolbar.textInputView resignFirstResponder];
 }
 
 - (void)dealloc
