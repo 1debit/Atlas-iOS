@@ -68,8 +68,8 @@ NSString *const ATLAvatarViewAccessibilityLabel = @"ATLAvatarViewAccessibilityLa
     // Default UI Appearance
     _initialsFont = [UIFont systemFontOfSize:14];
     _initialsColor = [UIColor blackColor];
-    _avatarImageViewDiameter = 30;
-
+    _avatarImageViewDiameter = 22;
+    
     self.contentMode = UIViewContentModeScaleAspectFill;
     self.accessibilityLabel = ATLAvatarViewAccessibilityLabel;
     
@@ -91,8 +91,6 @@ NSString *const ATLAvatarViewAccessibilityLabel = @"ATLAvatarViewAccessibilityLa
     
     // Presence Status View
     _presenceStatusView = [[ATLPresenceStatusView alloc] init];
-    _presenceStatusEnabled = true;
-    [self addSubview:_presenceStatusView];
 }
 
 - (CGSize)intrinsicContentSize
@@ -153,7 +151,7 @@ NSString *const ATLAvatarViewAccessibilityLabel = @"ATLAvatarViewAccessibilityLa
             self.presenceStatusView.mode = ATLMPresenceStatusViewModeBordered;
             break;
     }
-
+    
     _avatarItem = avatarItem;
 }
 
@@ -243,7 +241,7 @@ NSString *const ATLAvatarViewAccessibilityLabel = @"ATLAvatarViewAccessibilityLa
     
     CGFloat avatarViewDiameter = MIN(CGRectGetWidth(self.imageView.bounds), CGRectGetHeight(self.imageView.bounds));
     self.imageView.layer.cornerRadius = avatarViewDiameter * 0.5;
-
+    
     // Initials Label
     self.initialsLabel.frame = CGRectInset(self.bounds, 3, 3);
     
@@ -257,5 +255,6 @@ NSString *const ATLAvatarViewAccessibilityLabel = @"ATLAvatarViewAccessibilityLa
                                                width
                                                );
 }
-    
+
 @end
+
